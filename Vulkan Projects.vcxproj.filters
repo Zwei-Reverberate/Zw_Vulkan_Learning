@@ -15,10 +15,33 @@
     <Filter Include="Source Files\vkcore">
       <UniqueIdentifier>{2f8bfc8a-ce95-4f5b-8d73-3fb1faa2f5ad}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\app">
+      <UniqueIdentifier>{ae31d100-e7d0-4458-8e84-1ac3280e7f10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\enum">
+      <UniqueIdentifier>{587fdc7b-a658-48e1-aa6b-fc03876df740}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main\main.cpp">
       <Filter>Source Files\main</Filter>
     </ClCompile>
+    <ClCompile Include="src\app\vulkanapp.cpp">
+      <Filter>Source Files\app</Filter>
+    </ClCompile>
+    <ClCompile Include="src\app\glfwwindow.cpp">
+      <Filter>Source Files\app</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\app\vulkanapp.h">
+      <Filter>Source Files\app</Filter>
+    </ClInclude>
+    <ClInclude Include="src\app\glfwwindow.h">
+      <Filter>Source Files\app</Filter>
+    </ClInclude>
+    <ClInclude Include="src\enum\appenum.h">
+      <Filter>Source Files\enum</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

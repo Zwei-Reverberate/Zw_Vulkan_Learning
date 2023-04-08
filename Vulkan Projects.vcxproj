@@ -163,7 +163,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\app\glfwwindow.cpp" />
+    <ClCompile Include="src\app\vulkanapp.cpp" />
     <ClCompile Include="src\main\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\app\glfwwindow.h" />
+    <ClInclude Include="src\app\vulkanapp.h" />
+    <ClInclude Include="src\enum\appenum.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
