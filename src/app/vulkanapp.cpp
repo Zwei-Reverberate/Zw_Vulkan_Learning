@@ -3,8 +3,15 @@
 void VulkanApp::excute()
 {
 	m_appWindow.initWindow();
+	initCoreVulkan();
 	mainLoop();
 	cleanUp();
+}
+
+void VulkanApp::initCoreVulkan()
+{
+	m_coreInstance = std::make_shared<VkcoreInstance>();
+	m_coreInstance->create();
 }
 
 void VulkanApp::mainLoop()
@@ -23,5 +30,6 @@ void VulkanApp::mainLoop()
 
 void VulkanApp::cleanUp()
 {
+	m_coreInstance->destroy();
 	m_appWindow.destroyWindow();
 }

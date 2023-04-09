@@ -32,6 +32,12 @@
     <ClCompile Include="src\app\glfwwindow.cpp">
       <Filter>Source Files\app</Filter>
     </ClCompile>
+    <ClCompile Include="src\vkcore\vkcoreinstance.cpp">
+      <Filter>Source Files\vkcore</Filter>
+    </ClCompile>
+    <ClCompile Include="src\enum\appenum.cpp">
+      <Filter>Source Files\enum</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\app\vulkanapp.h">
@@ -42,6 +48,9 @@
     </ClInclude>
     <ClInclude Include="src\enum\appenum.h">
       <Filter>Source Files\enum</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vkcore\vkcoreinstance.h">
+      <Filter>Source Files\vkcore</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
