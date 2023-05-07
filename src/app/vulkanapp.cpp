@@ -12,6 +12,7 @@ void VulkanApp::initCoreVulkan()
 {
 	m_coreInstance = std::make_shared<VkcoreInstance>();
 	m_coreInstance->create();
+	m_coreInstance->setupDebugMessenger();
 }
 
 void VulkanApp::mainLoop()

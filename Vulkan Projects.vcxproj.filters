@@ -38,6 +38,9 @@
     <ClCompile Include="src\enum\appenum.cpp">
       <Filter>Source Files\enum</Filter>
     </ClCompile>
+    <ClCompile Include="src\vkcore\vkvalidation.cpp">
+      <Filter>Source Files\vkcore</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\app\vulkanapp.h">
@@ -50,6 +53,9 @@
       <Filter>Source Files\enum</Filter>
     </ClInclude>
     <ClInclude Include="src\vkcore\vkcoreinstance.h">
+      <Filter>Source Files\vkcore</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vkcore\vkvalidation.h">
       <Filter>Source Files\vkcore</Filter>
     </ClInclude>
   </ItemGroup>
