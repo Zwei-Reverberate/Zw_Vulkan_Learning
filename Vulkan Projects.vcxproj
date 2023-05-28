@@ -167,14 +167,18 @@
     <ClCompile Include="src\app\vulkanapp.cpp" />
     <ClCompile Include="src\enum\appenum.cpp" />
     <ClCompile Include="src\main\main.cpp" />
+    <ClCompile Include="src\vkcore\queuefamilyindices.cpp" />
     <ClCompile Include="src\vkcore\vkcoreinstance.cpp" />
+    <ClCompile Include="src\vkcore\vkcorephysicaldevice.cpp" />
     <ClCompile Include="src\vkcore\vkvalidation.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\app\glfwwindow.h" />
     <ClInclude Include="src\app\vulkanapp.h" />
     <ClInclude Include="src\enum\appenum.h" />
+    <ClInclude Include="src\vkcore\queuefamilyindices.h" />
     <ClInclude Include="src\vkcore\vkcoreinstance.h" />
+    <ClInclude Include="src\vkcore\vkcorephysicaldevice.h" />
     <ClInclude Include="src\vkcore\vkvalidation.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

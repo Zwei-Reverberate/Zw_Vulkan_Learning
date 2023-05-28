@@ -13,6 +13,9 @@ void VulkanApp::initCoreVulkan()
 	m_coreInstance = std::make_shared<VkcoreInstance>();
 	m_coreInstance->create();
 	m_coreInstance->setupDebugMessenger();
+
+	m_corePhysicalDevice = std::make_shared<VkcorePhysicalDevice>();
+	m_corePhysicalDevice->pickPhysicalDevice(m_coreInstance);
 }
 
 void VulkanApp::mainLoop()
