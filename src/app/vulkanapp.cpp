@@ -16,6 +16,9 @@ void VulkanApp::initCoreVulkan()
 
 	m_corePhysicalDevice = std::make_shared<VkcorePhysicalDevice>();
 	m_corePhysicalDevice->pickPhysicalDevice(m_coreInstance);
+
+	m_coreLogicalDevice = std::make_shared<VkcoreLogicalDevice>();
+	m_coreLogicalDevice->create(m_corePhysicalDevice);
 }
 
 void VulkanApp::mainLoop()
@@ -34,6 +37,7 @@ void VulkanApp::mainLoop()
 
 void VulkanApp::cleanUp()
 {
+	m_coreLogicalDevice->destroy();
 	m_coreInstance->destroy();
 	m_appWindow.destroyWindow();
 }

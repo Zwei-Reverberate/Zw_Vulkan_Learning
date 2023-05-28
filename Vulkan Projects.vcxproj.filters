@@ -47,6 +47,9 @@
     <ClCompile Include="src\vkcore\queuefamilyindices.cpp">
       <Filter>Source Files\vkcore</Filter>
     </ClCompile>
+    <ClCompile Include="src\vkcore\vkcorelogicaldevice.cpp">
+      <Filter>Source Files\vkcore</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\app\vulkanapp.h">
@@ -68,6 +71,9 @@
       <Filter>Source Files\vkcore</Filter>
     </ClInclude>
     <ClInclude Include="src\vkcore\queuefamilyindices.h">
+      <Filter>Source Files\vkcore</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vkcore\vkcorelogicaldevice.h">
       <Filter>Source Files\vkcore</Filter>
     </ClInclude>
   </ItemGroup>

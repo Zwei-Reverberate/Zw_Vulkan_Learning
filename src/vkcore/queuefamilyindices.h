@@ -1,6 +1,5 @@
 #ifndef QUEUEFAMILYINDICES_H
 #define QUEUEFAMILYINDICES_H
-#define VKCOREPHYSICALDEVICE_H
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
 #include <optional>

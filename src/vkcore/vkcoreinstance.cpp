@@ -61,6 +61,11 @@ VkInstance VkcoreInstance::getInstance() const
     return m_instance;
 }
 
+VkValidation VkcoreInstance::getValidation() const
+{
+    return m_validation;
+}
+
 void VkcoreInstance::setupDebugMessenger()
 {
     if (!appenum::enableValidationLayers) return;

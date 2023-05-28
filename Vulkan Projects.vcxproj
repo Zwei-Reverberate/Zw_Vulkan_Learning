@@ -169,6 +169,7 @@
     <ClCompile Include="src\main\main.cpp" />
     <ClCompile Include="src\vkcore\queuefamilyindices.cpp" />
     <ClCompile Include="src\vkcore\vkcoreinstance.cpp" />
+    <ClCompile Include="src\vkcore\vkcorelogicaldevice.cpp" />
     <ClCompile Include="src\vkcore\vkcorephysicaldevice.cpp" />
     <ClCompile Include="src\vkcore\vkvalidation.cpp" />
   </ItemGroup>
@@ -178,6 +179,7 @@
     <ClInclude Include="src\enum\appenum.h" />
     <ClInclude Include="src\vkcore\queuefamilyindices.h" />
     <ClInclude Include="src\vkcore\vkcoreinstance.h" />
+    <ClInclude Include="src\vkcore\vkcorelogicaldevice.h" />
     <ClInclude Include="src\vkcore\vkcorephysicaldevice.h" />
     <ClInclude Include="src\vkcore\vkvalidation.h" />
   </ItemGroup>

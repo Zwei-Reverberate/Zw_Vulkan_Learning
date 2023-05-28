@@ -17,6 +17,7 @@ public:
 	void create();
 	void destroy();
 	VkInstance getInstance() const;
+	VkValidation getValidation() const;
 
 	void setupDebugMessenger();
 	static VkResult CreateDebugUtilsMessengerEXT
