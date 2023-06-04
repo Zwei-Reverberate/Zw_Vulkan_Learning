@@ -6,8 +6,12 @@ bool QueueFamilyIndices::isComplete()
 	return m_graphicsFamily.has_value();
 }
 
-QueueFamilyIndices QueueFamilyIndices::findQueueFamilies(VkPhysicalDevice device)
+QueueFamilyIndices QueueFamilyIndices::findQueueFamilies(VkPhysicalDevice device, std::shared_ptr<VkcoreSurface> pSurface)
 {
+    if (!pSurface)
+    {
+        return QueueFamilyIndices();
+    }
     QueueFamilyIndices indices;
     uint32_t queueFamilyCount = 0;
     vkGetPhysicalDeviceQueueFamilyProperties(device, &queueFamilyCount, nullptr);
@@ -22,6 +26,14 @@ QueueFamilyIndices QueueFamilyIndices::findQueueFamilies(VkPhysicalDevice device
         {
             indices.m_graphicsFamily = i;
         }
+
+        VkBool32 presentSupport = false;
+        vkGetPhysicalDeviceSurfaceSupportKHR(device, i, pSurface->getSurface(), &presentSupport);
+        if (presentSupport) 
+        {
+            indices.m_presentFamily = i;
+        }
+
 
         if (indices.isComplete()) 
         {

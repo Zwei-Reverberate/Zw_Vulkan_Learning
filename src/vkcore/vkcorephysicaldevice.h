@@ -5,6 +5,7 @@
 #include <memory>
 #include "../vkcore/vkcoreinstance.h"
 #include "../vkcore/queuefamilyindices.h"
+#include "../vkcore/vkcoresurface.h"
 
 class VkcorePhysicalDevice
 {
@@ -15,8 +16,8 @@ public:
 	VkcorePhysicalDevice();
 	~VkcorePhysicalDevice() = default;
 	VkPhysicalDevice getPhysicalDevice();
-	void pickPhysicalDevice(std::shared_ptr<VkcoreInstance> p_instance);
-	bool isDeviceSuitable(VkPhysicalDevice device);
+	void pickPhysicalDevice(std::shared_ptr<VkcoreInstance> pInstance, std::shared_ptr<VkcoreSurface> pSurface);
+	bool isDeviceSuitable(VkPhysicalDevice device, std::shared_ptr<VkcoreSurface> pSurface);
 };
 
 
