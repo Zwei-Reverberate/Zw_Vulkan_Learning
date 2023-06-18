@@ -15,6 +15,8 @@ namespace appenum
 
 	extern const std::vector<const char*> validationLayers;
 
+	extern const std::vector<const char*> deviceExtensions;
+
 	extern const bool enableValidationLayers;
 }
 

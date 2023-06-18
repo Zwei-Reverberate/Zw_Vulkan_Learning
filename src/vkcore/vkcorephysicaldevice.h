@@ -18,6 +18,7 @@ public:
 	VkPhysicalDevice getPhysicalDevice();
 	void pickPhysicalDevice(std::shared_ptr<VkcoreInstance> pInstance, std::shared_ptr<VkcoreSurface> pSurface);
 	bool isDeviceSuitable(VkPhysicalDevice device, std::shared_ptr<VkcoreSurface> pSurface);
+	bool checkDeviceExtensionSupport(VkPhysicalDevice device);
 };
 
 

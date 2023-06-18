@@ -22,6 +22,9 @@ void VulkanApp::initCoreVulkan()
 
 	m_coreLogicalDevice = std::make_shared<VkcoreLogicalDevice>();
 	m_coreLogicalDevice->create(m_corePhysicalDevice, m_coreSurface);
+
+	m_coreSwapChain = std::make_shared<VkcoreSwapChain>();
+	m_coreSwapChain->create(m_appWindow.getWindow(), m_corePhysicalDevice, m_coreSurface, m_coreLogicalDevice);
 }
 
 void VulkanApp::mainLoop()
@@ -40,6 +43,7 @@ void VulkanApp::mainLoop()
 
 void VulkanApp::cleanUp()
 {
+	m_coreSwapChain->destroy(m_coreLogicalDevice);
 	m_coreLogicalDevice->destroy();
 	m_coreSurface->destroy(m_coreInstance);
 	m_coreInstance->destroy();

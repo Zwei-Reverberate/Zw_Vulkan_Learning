@@ -168,10 +168,12 @@
     <ClCompile Include="src\enum\appenum.cpp" />
     <ClCompile Include="src\main\main.cpp" />
     <ClCompile Include="src\vkcore\queuefamilyindices.cpp" />
+    <ClCompile Include="src\vkcore\swapchainsupportdetails.cpp" />
     <ClCompile Include="src\vkcore\vkcoreinstance.cpp" />
     <ClCompile Include="src\vkcore\vkcorelogicaldevice.cpp" />
     <ClCompile Include="src\vkcore\vkcorephysicaldevice.cpp" />
     <ClCompile Include="src\vkcore\vkcoresurface.cpp" />
+    <ClCompile Include="src\vkcore\vkcoreswapchain.cpp" />
     <ClCompile Include="src\vkcore\vkvalidation.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -179,10 +181,12 @@
     <ClInclude Include="src\app\vulkanapp.h" />
     <ClInclude Include="src\enum\appenum.h" />
     <ClInclude Include="src\vkcore\queuefamilyindices.h" />
+    <ClInclude Include="src\vkcore\swapchainsupportdetails.h" />
     <ClInclude Include="src\vkcore\vkcoreinstance.h" />
     <ClInclude Include="src\vkcore\vkcorelogicaldevice.h" />
     <ClInclude Include="src\vkcore\vkcorephysicaldevice.h" />
     <ClInclude Include="src\vkcore\vkcoresurface.h" />
+    <ClInclude Include="src\vkcore\vkcoreswapchain.h" />
     <ClInclude Include="src\vkcore\vkvalidation.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

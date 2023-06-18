@@ -53,6 +53,12 @@
     <ClCompile Include="src\vkcore\vkcoresurface.cpp">
       <Filter>Source Files\vkcore</Filter>
     </ClCompile>
+    <ClCompile Include="src\vkcore\swapchainsupportdetails.cpp">
+      <Filter>Source Files\vkcore</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vkcore\vkcoreswapchain.cpp">
+      <Filter>Source Files\vkcore</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\app\vulkanapp.h">
@@ -80,6 +86,12 @@
       <Filter>Source Files\vkcore</Filter>
     </ClInclude>
     <ClInclude Include="src\vkcore\vkcoresurface.h">
+      <Filter>Source Files\vkcore</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vkcore\swapchainsupportdetails.h">
+      <Filter>Source Files\vkcore</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vkcore\vkcoreswapchain.h">
       <Filter>Source Files\vkcore</Filter>
     </ClInclude>
   </ItemGroup>

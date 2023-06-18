@@ -1,5 +1,8 @@
 #include "vkcorephysicaldevice.h"
+#include "../enum/appenum.h"
+#include "../vkcore/swapchainsupportdetails.h"
 #include <stdexcept>
+#include <set>
 
 VkcorePhysicalDevice::VkcorePhysicalDevice()
 {
@@ -18,7 +21,33 @@ bool VkcorePhysicalDevice::isDeviceSuitable(VkPhysicalDevice device, std::shared
         return false;
     }
     QueueFamilyIndices indices = QueueFamilyIndices::findQueueFamilies(device, pSurface);
-    return indices.isComplete();
+    bool extensionsSupported = checkDeviceExtensionSupport(device);
+
+    bool swapChainAdequate = false;
+    if (extensionsSupported)
+    {
+        SwapChainSupportDetails swapChainSupport = SwapChainSupportDetails::querySwapChainSupport(device, pSurface->getSurface());
+        swapChainAdequate = !swapChainSupport.formats.empty() && !swapChainSupport.presentModes.empty();
+    }
+
+    return indices.isComplete() && extensionsSupported && swapChainAdequate;
+}
+
+bool VkcorePhysicalDevice::checkDeviceExtensionSupport(VkPhysicalDevice device)
+{
+    uint32_t extensionCount;
+    vkEnumerateDeviceExtensionProperties(device, nullptr, &extensionCount, nullptr);
+
+    std::vector<VkExtensionProperties> availableExtensions(extensionCount);
+    vkEnumerateDeviceExtensionProperties(device, nullptr, &extensionCount, availableExtensions.data());
+
+    std::set<std::string> requiredExtensions(appenum::deviceExtensions.begin(), appenum::deviceExtensions.end());
+
+    for (const auto& extension : availableExtensions) 
+    {
+        requiredExtensions.erase(extension.extensionName);
+    }
+    return requiredExtensions.empty();
 }
 
 void VkcorePhysicalDevice::pickPhysicalDevice(std::shared_ptr<VkcoreInstance> pInstance, std::shared_ptr<VkcoreSurface> pSurface)

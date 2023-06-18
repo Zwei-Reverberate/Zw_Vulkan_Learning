@@ -37,7 +37,9 @@ void VkcoreLogicalDevice::create(std::shared_ptr<VkcorePhysicalDevice> pCorePhys
     createInfo.queueCreateInfoCount = static_cast<uint32_t>(queueCreateInfos.size());
     createInfo.pQueueCreateInfos = queueCreateInfos.data();
     createInfo.pEnabledFeatures = &deviceFeatures;
-    createInfo.enabledExtensionCount = 0;
+    // 启用 swap chain 需要 VK_KHR_swapchain 先启用扩展
+    createInfo.enabledExtensionCount = static_cast<uint32_t>(appenum::deviceExtensions.size());
+    createInfo.ppEnabledExtensionNames = appenum::deviceExtensions.data();
 
     if (appenum::enableValidationLayers) 
     {
