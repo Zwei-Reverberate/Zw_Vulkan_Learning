@@ -7,6 +7,7 @@
 #include "../vkcore/vkcorelogicaldevice.h"
 #include "../vkcore/vkcoresurface.h"
 #include "../vkcore/vkcoreswapchain.h"
+#include "../vkcore/vkcoreimageview.h"
 
 class VulkanApp
 {
@@ -17,6 +18,7 @@ private:
 	std::shared_ptr<VkcoreLogicalDevice> m_coreLogicalDevice;
 	std::shared_ptr<VkcoreSurface> m_coreSurface;
 	std::shared_ptr<VkcoreSwapChain> m_coreSwapChain;
+	std::shared_ptr<VkcoreImageView> m_coreImageView;
 
 public:
 	void excute();

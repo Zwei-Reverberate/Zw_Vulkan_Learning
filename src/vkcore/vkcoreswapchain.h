@@ -25,6 +25,10 @@ public:
 	VkExtent2D chooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities, GLFWwindow* window);
 	void create(GLFWwindow* pWindow, std::shared_ptr<VkcorePhysicalDevice> pPhysicalDevice, std::shared_ptr<VkcoreSurface> pSurface, std::shared_ptr<VkcoreLogicalDevice> pLogicalDevice);
 	void destroy(std::shared_ptr<VkcoreLogicalDevice> pLogicalDevice);
+
+	std::vector<VkImage> getSwapChainImages() const;
+	VkFormat getSwapChainImageFormat() const;
+	VkExtent2D getSwapChainExtent() const;
 };
 
 #endif // !VKCORESWAPCHAIN_H

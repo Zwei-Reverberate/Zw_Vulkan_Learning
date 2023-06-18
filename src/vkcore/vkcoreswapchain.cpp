@@ -139,3 +139,18 @@ void VkcoreSwapChain::destroy(std::shared_ptr<VkcoreLogicalDevice> pLogicalDevic
     }
     vkDestroySwapchainKHR(pLogicalDevice->getDevice(), m_swapChain, nullptr);
 }
+
+std::vector<VkImage> VkcoreSwapChain::getSwapChainImages() const
+{
+    return m_swapChainImages;
+}
+
+VkFormat VkcoreSwapChain::getSwapChainImageFormat() const
+{
+    return m_swapChainImageFormat;
+}
+
+VkExtent2D VkcoreSwapChain::getSwapChainExtent() const
+{
+    return m_swapChainExtent;
+}
