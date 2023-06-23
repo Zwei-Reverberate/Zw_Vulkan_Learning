@@ -1,4 +1,5 @@
 #include "vulkanapp.h"
+#include "../enum/appenum.h"
 
 void VulkanApp::excute()
 {
@@ -28,6 +29,9 @@ void VulkanApp::initCoreVulkan()
 
 	m_coreImageView = std::make_shared<VkcoreImageView>();
 	m_coreImageView->create(m_coreSwapChain, m_coreLogicalDevice);
+
+	m_graphicsPipeline = std::make_shared<VkGraphicsPipeline>();
+	m_graphicsPipeline->create(appenum::vertexShaderPath, appenum::fragmentShaderPath, m_coreLogicalDevice);
 }
 
 void VulkanApp::mainLoop()

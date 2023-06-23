@@ -26,4 +26,7 @@ namespace appenum
 	#else
 		const bool enableValidationLayers = true;
 	#endif
+
+	extern const std::string vertexShaderPath = "shader/triangle/trianglevert.spv";
+	extern const std::string fragmentShaderPath = "shader/triangle/trianglefrag.spv";
 }

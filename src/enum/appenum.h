@@ -18,6 +18,9 @@ namespace appenum
 	extern const std::vector<const char*> deviceExtensions;
 
 	extern const bool enableValidationLayers;
+
+	extern const std::string vertexShaderPath;
+	extern const std::string fragmentShaderPath;
 }
 
 #endif

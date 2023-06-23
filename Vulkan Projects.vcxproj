@@ -166,6 +166,8 @@
     <ClCompile Include="src\app\glfwwindow.cpp" />
     <ClCompile Include="src\app\vulkanapp.cpp" />
     <ClCompile Include="src\enum\appenum.cpp" />
+    <ClCompile Include="src\graphicspipeline\vkgraphicspipeline.cpp" />
+    <ClCompile Include="src\graphicspipeline\vkshader.cpp" />
     <ClCompile Include="src\main\main.cpp" />
     <ClCompile Include="src\vkcore\queuefamilyindices.cpp" />
     <ClCompile Include="src\vkcore\swapchainsupportdetails.cpp" />
@@ -174,12 +176,15 @@
     <ClCompile Include="src\vkcore\vkcorephysicaldevice.cpp" />
     <ClCompile Include="src\vkcore\vkcoresurface.cpp" />
     <ClCompile Include="src\vkcore\vkcoreswapchain.cpp" />
+    <ClCompile Include="src\vkcore\vkcoreimageview.cpp" />
     <ClCompile Include="src\vkcore\vkvalidation.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\app\glfwwindow.h" />
     <ClInclude Include="src\app\vulkanapp.h" />
     <ClInclude Include="src\enum\appenum.h" />
+    <ClInclude Include="src\graphicspipeline\vkgraphicspipeline.h" />
+    <ClInclude Include="src\graphicspipeline\vkshader.h" />
     <ClInclude Include="src\vkcore\queuefamilyindices.h" />
     <ClInclude Include="src\vkcore\swapchainsupportdetails.h" />
     <ClInclude Include="src\vkcore\vkcoreinstance.h" />
@@ -187,7 +192,12 @@
     <ClInclude Include="src\vkcore\vkcorephysicaldevice.h" />
     <ClInclude Include="src\vkcore\vkcoresurface.h" />
     <ClInclude Include="src\vkcore\vkcoreswapchain.h" />
+    <ClInclude Include="src\vkcore\vkcoreimageview.h" />
     <ClInclude Include="src\vkcore\vkvalidation.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shader\triangle\triangle.frag" />
+    <None Include="shader\triangle\triangle.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

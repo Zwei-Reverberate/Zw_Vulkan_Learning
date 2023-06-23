@@ -21,6 +21,12 @@
     <Filter Include="Source Files\enum">
       <UniqueIdentifier>{587fdc7b-a658-48e1-aa6b-fc03876df740}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shader">
+      <UniqueIdentifier>{e25fb810-e2d5-47d5-8bf6-1991dc010b0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\graphicspipeline">
+      <UniqueIdentifier>{58aa6ea0-9393-4d03-8800-48fd80f67251}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main\main.cpp">
@@ -59,6 +65,15 @@
     <ClCompile Include="src\vkcore\vkcoreswapchain.cpp">
       <Filter>Source Files\vkcore</Filter>
     </ClCompile>
+    <ClCompile Include="src\vkcore\vkcoreimageview.cpp">
+      <Filter>Source Files\vkcore</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphicspipeline\vkgraphicspipeline.cpp">
+      <Filter>Source Files\graphicspipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphicspipeline\vkshader.cpp">
+      <Filter>Source Files\graphicspipeline</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\app\vulkanapp.h">
@@ -94,5 +109,22 @@
     <ClInclude Include="src\vkcore\vkcoreswapchain.h">
       <Filter>Source Files\vkcore</Filter>
     </ClInclude>
+    <ClInclude Include="src\vkcore\vkcoreimageview.h">
+      <Filter>Source Files\vkcore</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphicspipeline\vkgraphicspipeline.h">
+      <Filter>Source Files\graphicspipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphicspipeline\vkshader.h">
+      <Filter>Source Files\graphicspipeline</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shader\triangle\triangle.vert">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="shader\triangle\triangle.frag">
+      <Filter>Shader</Filter>
+    </None>
   </ItemGroup>
 </Project>
