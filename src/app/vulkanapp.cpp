@@ -50,6 +50,7 @@ void VulkanApp::mainLoop()
 
 void VulkanApp::cleanUp()
 {
+	m_graphicsPipeline->destroy(m_coreLogicalDevice);
 	m_coreImageView->destroy(m_coreLogicalDevice);
 	m_coreSwapChain->destroy(m_coreLogicalDevice);
 	m_coreLogicalDevice->destroy();
