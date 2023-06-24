@@ -12,6 +12,7 @@ public:
 	~VkcoreRenderPass() = default;
 	void create(std::shared_ptr<VkcoreLogicalDevice> pLogicalDevice, std::shared_ptr<VkcoreSwapChain> pSwapChain);
 	void destroy(std::shared_ptr<VkcoreLogicalDevice> pLogicalDevice);
+	VkRenderPass getRenderPass();
 };
 
 #endif // !VKCORERENDERPASS_H

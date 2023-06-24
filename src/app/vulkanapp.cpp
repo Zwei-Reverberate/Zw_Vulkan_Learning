@@ -34,7 +34,7 @@ void VulkanApp::initCoreVulkan()
 	m_coreRenderPass->create(m_coreLogicalDevice, m_coreSwapChain);
 	
 	m_coreGraphicsPipeline = std::make_shared<VkcoreGraphicsPipeline>();
-	m_coreGraphicsPipeline->create(appenum::vertexShaderPath, appenum::fragmentShaderPath, m_coreLogicalDevice);
+	m_coreGraphicsPipeline->create(appenum::vertexShaderPath, appenum::fragmentShaderPath, m_coreLogicalDevice, m_coreRenderPass);
 }
 
 void VulkanApp::mainLoop()

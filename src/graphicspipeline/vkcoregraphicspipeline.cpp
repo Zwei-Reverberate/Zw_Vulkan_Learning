@@ -1,18 +1,20 @@
 #include "vkcoregraphicspipeline.h"
 #include <stdexcept>
+#include <fstream>
 
-void VkcoreGraphicsPipeline::create(const std::string& vertexShaderPath, const std::string& fragmentShaderPath, std::shared_ptr<VkcoreLogicalDevice> pLogicalDevice)
+void VkcoreGraphicsPipeline::create(const std::string& vertexShaderPath, const std::string& fragmentShaderPath, std::shared_ptr<VkcoreLogicalDevice> pLogicalDevice, std::shared_ptr<VkcoreRenderPass> pRenderPass)
 {
-	if (!pLogicalDevice)
+	if (!pLogicalDevice || !pRenderPass)
 	{
 		return;
 	}
 
 	// shader
-	VkShader vertexShader, fragmentShader;
-	vertexShader.create(vertexShaderPath, pLogicalDevice, ShaderType::VERTEX);
-	fragmentShader.create(fragmentShaderPath, pLogicalDevice, ShaderType::FRAGMENT);
-	VkPipelineShaderStageCreateInfo shaderStages[] = {vertexShader.getShaderStageInfo(), fragmentShader.getShaderStageInfo()};
+	std::shared_ptr<VkShader> vertexShader = std::make_shared<VkShader>();
+	std::shared_ptr<VkShader> fragmentShader = std::make_shared<VkShader>();
+	vertexShader->create(vertexShaderPath, pLogicalDevice, ShaderType::VERTEX);
+	fragmentShader->create(fragmentShaderPath, pLogicalDevice, ShaderType::FRAGMENT);
+	VkPipelineShaderStageCreateInfo shaderStages[] = {vertexShader->getShaderStageInfo(), fragmentShader->getShaderStageInfo()};
 
 	// vertex input
 	VkPipelineVertexInputStateCreateInfo vertexInputInfo{};
@@ -85,9 +87,30 @@ void VkcoreGraphicsPipeline::create(const std::string& vertexShaderPath, const s
 		throw std::runtime_error("failed to create pipeline layout!");
 	}
 
+	// graphics pipeline
+	VkGraphicsPipelineCreateInfo pipelineInfo{};
+	pipelineInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
+	pipelineInfo.stageCount = 2;
+	pipelineInfo.pStages = shaderStages;
+	pipelineInfo.pVertexInputState = &vertexInputInfo;
+	pipelineInfo.pInputAssemblyState = &inputAssembly;
+	pipelineInfo.pViewportState = &viewportState;
+	pipelineInfo.pRasterizationState = &rasterizer;
+	pipelineInfo.pMultisampleState = &multisampling;
+	pipelineInfo.pColorBlendState = &colorBlending;
+	pipelineInfo.pDynamicState = &dynamicState;
+	pipelineInfo.layout = m_pipelineLayout;
+	pipelineInfo.renderPass = pRenderPass->getRenderPass();
+	pipelineInfo.subpass = 0;
+	pipelineInfo.basePipelineHandle = VK_NULL_HANDLE;
+	if (vkCreateGraphicsPipelines(pLogicalDevice->getDevice(), VK_NULL_HANDLE, 1, &pipelineInfo, nullptr, &m_graphicsPipeline) != VK_SUCCESS) 
+	{
+		throw std::runtime_error("failed to create graphics pipeline!");
+	}
+		
 	// shader destroy
-	vertexShader.destroy(pLogicalDevice);
-	fragmentShader.destroy(pLogicalDevice);
+	vertexShader->destroy(pLogicalDevice);
+	fragmentShader->destroy(pLogicalDevice);
 }
 
 void VkcoreGraphicsPipeline::destroy(std::shared_ptr<VkcoreLogicalDevice> pLogicalDevice)
@@ -96,5 +119,6 @@ void VkcoreGraphicsPipeline::destroy(std::shared_ptr<VkcoreLogicalDevice> pLogic
 	{
 		return;
 	}
+	vkDestroyPipeline(pLogicalDevice->getDevice(), m_graphicsPipeline, nullptr);
 	vkDestroyPipelineLayout(pLogicalDevice->getDevice(), m_pipelineLayout, nullptr);
 }

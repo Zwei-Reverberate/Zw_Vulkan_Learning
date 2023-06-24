@@ -49,3 +49,8 @@ void VkcoreRenderPass::destroy(std::shared_ptr<VkcoreLogicalDevice> pLogicalDevi
 	}
 	vkDestroyRenderPass(pLogicalDevice->getDevice(), m_renderPass, nullptr);
 }
+
+VkRenderPass VkcoreRenderPass::getRenderPass()
+{
+	return m_renderPass;
+}
