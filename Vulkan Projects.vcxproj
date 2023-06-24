@@ -172,6 +172,7 @@
     <ClCompile Include="src\main\main.cpp" />
     <ClCompile Include="src\vkcore\queuefamilyindices.cpp" />
     <ClCompile Include="src\vkcore\swapchainsupportdetails.cpp" />
+    <ClCompile Include="src\vkcore\vkcoreframebuffers.cpp" />
     <ClCompile Include="src\vkcore\vkcoreinstance.cpp" />
     <ClCompile Include="src\vkcore\vkcorelogicaldevice.cpp" />
     <ClCompile Include="src\vkcore\vkcorephysicaldevice.cpp" />
@@ -189,6 +190,7 @@
     <ClInclude Include="src\graphicspipeline\vkshader.h" />
     <ClInclude Include="src\vkcore\queuefamilyindices.h" />
     <ClInclude Include="src\vkcore\swapchainsupportdetails.h" />
+    <ClInclude Include="src\vkcore\vkcoreframebuffers.h" />
     <ClInclude Include="src\vkcore\vkcoreinstance.h" />
     <ClInclude Include="src\vkcore\vkcorelogicaldevice.h" />
     <ClInclude Include="src\vkcore\vkcorephysicaldevice.h" />

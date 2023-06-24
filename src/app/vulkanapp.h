@@ -8,6 +8,7 @@
 #include "../vkcore/vkcoresurface.h"
 #include "../vkcore/vkcoreswapchain.h"
 #include "../vkcore/vkcoreimageview.h"
+#include "../vkcore/vkcoreframebuffers.h"
 #include "../graphicspipeline/vkcoregraphicspipeline.h"
 #include "../graphicspipeline/vkcorerenderpass.h"
 
@@ -23,6 +24,7 @@ private:
 	std::shared_ptr<VkcoreImageView> m_coreImageView;
 	std::shared_ptr<VkcoreRenderPass> m_coreRenderPass;
 	std::shared_ptr<VkcoreGraphicsPipeline> m_coreGraphicsPipeline;
+	std::shared_ptr<VkcoreFrameBuffers> m_coreFrameBuffers;
 
 public:
 	void excute();

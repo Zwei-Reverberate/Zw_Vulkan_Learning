@@ -77,6 +77,9 @@
     <ClCompile Include="src\graphicspipeline\vkcorerenderpass.cpp">
       <Filter>Source Files\graphicspipeline</Filter>
     </ClCompile>
+    <ClCompile Include="src\vkcore\vkcoreframebuffers.cpp">
+      <Filter>Source Files\vkcore</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\app\vulkanapp.h">
@@ -123,6 +126,9 @@
     </ClInclude>
     <ClInclude Include="src\graphicspipeline\vkcorerenderpass.h">
       <Filter>Source Files\graphicspipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vkcore\vkcoreframebuffers.h">
+      <Filter>Source Files\vkcore</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
