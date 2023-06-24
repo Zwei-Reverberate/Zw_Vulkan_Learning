@@ -30,8 +30,11 @@ void VulkanApp::initCoreVulkan()
 	m_coreImageView = std::make_shared<VkcoreImageView>();
 	m_coreImageView->create(m_coreSwapChain, m_coreLogicalDevice);
 
-	m_graphicsPipeline = std::make_shared<VkGraphicsPipeline>();
-	m_graphicsPipeline->create(appenum::vertexShaderPath, appenum::fragmentShaderPath, m_coreLogicalDevice);
+	m_coreRenderPass = std::make_shared<VkcoreRenderPass>();
+	m_coreRenderPass->create(m_coreLogicalDevice, m_coreSwapChain);
+	
+	m_coreGraphicsPipeline = std::make_shared<VkcoreGraphicsPipeline>();
+	m_coreGraphicsPipeline->create(appenum::vertexShaderPath, appenum::fragmentShaderPath, m_coreLogicalDevice);
 }
 
 void VulkanApp::mainLoop()
@@ -50,7 +53,8 @@ void VulkanApp::mainLoop()
 
 void VulkanApp::cleanUp()
 {
-	m_graphicsPipeline->destroy(m_coreLogicalDevice);
+	m_coreGraphicsPipeline->destroy(m_coreLogicalDevice);
+	m_coreRenderPass->destroy(m_coreLogicalDevice);
 	m_coreImageView->destroy(m_coreLogicalDevice);
 	m_coreSwapChain->destroy(m_coreLogicalDevice);
 	m_coreLogicalDevice->destroy();

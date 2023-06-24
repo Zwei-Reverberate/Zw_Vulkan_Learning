@@ -68,10 +68,13 @@
     <ClCompile Include="src\vkcore\vkcoreimageview.cpp">
       <Filter>Source Files\vkcore</Filter>
     </ClCompile>
-    <ClCompile Include="src\graphicspipeline\vkgraphicspipeline.cpp">
+    <ClCompile Include="src\graphicspipeline\vkcoregraphicspipeline.cpp">
       <Filter>Source Files\graphicspipeline</Filter>
     </ClCompile>
     <ClCompile Include="src\graphicspipeline\vkshader.cpp">
+      <Filter>Source Files\graphicspipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphicspipeline\vkcorerenderpass.cpp">
       <Filter>Source Files\graphicspipeline</Filter>
     </ClCompile>
   </ItemGroup>
@@ -112,10 +115,13 @@
     <ClInclude Include="src\vkcore\vkcoreimageview.h">
       <Filter>Source Files\vkcore</Filter>
     </ClInclude>
-    <ClInclude Include="src\graphicspipeline\vkgraphicspipeline.h">
+    <ClInclude Include="src\graphicspipeline\vkcoregraphicspipeline.h">
       <Filter>Source Files\graphicspipeline</Filter>
     </ClInclude>
     <ClInclude Include="src\graphicspipeline\vkshader.h">
+      <Filter>Source Files\graphicspipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphicspipeline\vkcorerenderpass.h">
       <Filter>Source Files\graphicspipeline</Filter>
     </ClInclude>
   </ItemGroup>

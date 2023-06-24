@@ -8,7 +8,8 @@
 #include "../vkcore/vkcoresurface.h"
 #include "../vkcore/vkcoreswapchain.h"
 #include "../vkcore/vkcoreimageview.h"
-#include "../graphicspipeline/vkgraphicspipeline.h"
+#include "../graphicspipeline/vkcoregraphicspipeline.h"
+#include "../graphicspipeline/vkcorerenderpass.h"
 
 class VulkanApp
 {
@@ -20,7 +21,8 @@ private:
 	std::shared_ptr<VkcoreSurface> m_coreSurface;
 	std::shared_ptr<VkcoreSwapChain> m_coreSwapChain;
 	std::shared_ptr<VkcoreImageView> m_coreImageView;
-	std::shared_ptr<VkGraphicsPipeline> m_graphicsPipeline;
+	std::shared_ptr<VkcoreRenderPass> m_coreRenderPass;
+	std::shared_ptr<VkcoreGraphicsPipeline> m_coreGraphicsPipeline;
 
 public:
 	void excute();

@@ -1,16 +1,16 @@
-#ifndef VKGRAPHICSPIPELINE_H
-#define VKGRAPHICSPIPELINE_H
+#ifndef VKCOREGRAPHICSPIPELINE_H
+#define VKCOREGRAPHICSPIPELINE_H
 #include "../graphicspipeline/vkshader.h"
 #include <memory>
 
-class VkGraphicsPipeline
+class VkcoreGraphicsPipeline
 {
 private:
 	VkPipelineLayout m_pipelineLayout;
 
 public:
-	VkGraphicsPipeline() = default;
-	~VkGraphicsPipeline() = default;
+	VkcoreGraphicsPipeline() = default;
+	~VkcoreGraphicsPipeline() = default;
 	void create(const std::string& vertexShaderPath, const std::string& fragmentShaderPath, std::shared_ptr<VkcoreLogicalDevice> pLogicalDevice);
 	void destroy(std::shared_ptr<VkcoreLogicalDevice> pLogicalDevice);
 };

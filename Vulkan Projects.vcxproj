@@ -166,7 +166,8 @@
     <ClCompile Include="src\app\glfwwindow.cpp" />
     <ClCompile Include="src\app\vulkanapp.cpp" />
     <ClCompile Include="src\enum\appenum.cpp" />
-    <ClCompile Include="src\graphicspipeline\vkgraphicspipeline.cpp" />
+    <ClCompile Include="src\graphicspipeline\vkcoregraphicspipeline.cpp" />
+    <ClCompile Include="src\graphicspipeline\vkcorerenderpass.cpp" />
     <ClCompile Include="src\graphicspipeline\vkshader.cpp" />
     <ClCompile Include="src\main\main.cpp" />
     <ClCompile Include="src\vkcore\queuefamilyindices.cpp" />
@@ -183,7 +184,8 @@
     <ClInclude Include="src\app\glfwwindow.h" />
     <ClInclude Include="src\app\vulkanapp.h" />
     <ClInclude Include="src\enum\appenum.h" />
-    <ClInclude Include="src\graphicspipeline\vkgraphicspipeline.h" />
+    <ClInclude Include="src\graphicspipeline\vkcoregraphicspipeline.h" />
+    <ClInclude Include="src\graphicspipeline\vkcorerenderpass.h" />
     <ClInclude Include="src\graphicspipeline\vkshader.h" />
     <ClInclude Include="src\vkcore\queuefamilyindices.h" />
     <ClInclude Include="src\vkcore\swapchainsupportdetails.h" />

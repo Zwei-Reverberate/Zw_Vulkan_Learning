@@ -1,7 +1,7 @@
-#include "vkgraphicspipeline.h"
+#include "vkcoregraphicspipeline.h"
 #include <stdexcept>
 
-void VkGraphicsPipeline::create(const std::string& vertexShaderPath, const std::string& fragmentShaderPath, std::shared_ptr<VkcoreLogicalDevice> pLogicalDevice)
+void VkcoreGraphicsPipeline::create(const std::string& vertexShaderPath, const std::string& fragmentShaderPath, std::shared_ptr<VkcoreLogicalDevice> pLogicalDevice)
 {
 	if (!pLogicalDevice)
 	{
@@ -90,7 +90,7 @@ void VkGraphicsPipeline::create(const std::string& vertexShaderPath, const std::
 	fragmentShader.destroy(pLogicalDevice);
 }
 
-void VkGraphicsPipeline::destroy(std::shared_ptr<VkcoreLogicalDevice> pLogicalDevice)
+void VkcoreGraphicsPipeline::destroy(std::shared_ptr<VkcoreLogicalDevice> pLogicalDevice)
 {
 	if (!pLogicalDevice)
 	{
