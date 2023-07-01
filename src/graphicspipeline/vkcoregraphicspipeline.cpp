@@ -122,3 +122,8 @@ void VkcoreGraphicsPipeline::destroy(std::shared_ptr<VkcoreLogicalDevice> pLogic
 	vkDestroyPipeline(pLogicalDevice->getDevice(), m_graphicsPipeline, nullptr);
 	vkDestroyPipelineLayout(pLogicalDevice->getDevice(), m_pipelineLayout, nullptr);
 }
+
+VkPipeline VkcoreGraphicsPipeline::getGraphicsPipeline()
+{
+	return m_graphicsPipeline;
+}

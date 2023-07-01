@@ -15,6 +15,7 @@ public:
 	~VkcoreGraphicsPipeline() = default;
 	void create(const std::string& vertexShaderPath, const std::string& fragmentShaderPath, std::shared_ptr<VkcoreLogicalDevice> pLogicalDevice, std::shared_ptr<VkcoreRenderPass> pRenderPass);
 	void destroy(std::shared_ptr<VkcoreLogicalDevice> pLogicalDevice);
+	VkPipeline getGraphicsPipeline();
 };
 
 #endif // !VKCOREGRAPHICSPIPELINE_H

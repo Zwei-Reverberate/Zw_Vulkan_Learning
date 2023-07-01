@@ -47,3 +47,8 @@ void VkcoreFrameBuffers::destroy(std::shared_ptr<VkcoreLogicalDevice> pLogicalDe
     }
 
 }
+
+std::vector<VkFramebuffer> VkcoreFrameBuffers::getFrameBuffers()
+{
+    return m_swapChainFramebuffers;
+}

@@ -80,6 +80,12 @@
     <ClCompile Include="src\vkcore\vkcoreframebuffers.cpp">
       <Filter>Source Files\vkcore</Filter>
     </ClCompile>
+    <ClCompile Include="src\vkcore\vkcorecommandpool.cpp">
+      <Filter>Source Files\vkcore</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vkcore\vkcorecommandbuffer.cpp">
+      <Filter>Source Files\vkcore</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\app\vulkanapp.h">
@@ -128,6 +134,12 @@
       <Filter>Source Files\graphicspipeline</Filter>
     </ClInclude>
     <ClInclude Include="src\vkcore\vkcoreframebuffers.h">
+      <Filter>Source Files\vkcore</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vkcore\vkcorecommandpool.h">
+      <Filter>Source Files\vkcore</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vkcore\vkcorecommandbuffer.h">
       <Filter>Source Files\vkcore</Filter>
     </ClInclude>
   </ItemGroup>

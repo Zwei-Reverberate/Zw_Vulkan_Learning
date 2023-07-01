@@ -38,6 +38,12 @@ void VulkanApp::initCoreVulkan()
 
 	m_coreFrameBuffers = std::make_shared<VkcoreFrameBuffers>();
 	m_coreFrameBuffers->create(m_coreLogicalDevice, m_coreRenderPass, m_coreSwapChain, m_coreImageView);
+
+	m_coreCommndPool = std::make_shared<VkcoreCommndPool>();
+	m_coreCommndPool->create(m_corePhysicalDevice, m_coreLogicalDevice, m_coreSurface);
+
+	m_coreCommandBuffer = std::make_shared<VkcoreCommandBuffer>();
+	m_coreCommandBuffer->create(m_coreLogicalDevice, m_coreCommndPool);
 }
 
 void VulkanApp::mainLoop()
@@ -56,6 +62,7 @@ void VulkanApp::mainLoop()
 
 void VulkanApp::cleanUp()
 {
+	m_coreCommndPool->destroy(m_coreLogicalDevice);
 	m_coreFrameBuffers->destroy(m_coreLogicalDevice);
 	m_coreGraphicsPipeline->destroy(m_coreLogicalDevice);
 	m_coreRenderPass->destroy(m_coreLogicalDevice);

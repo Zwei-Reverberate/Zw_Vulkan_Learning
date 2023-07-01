@@ -9,8 +9,10 @@
 #include "../vkcore/vkcoreswapchain.h"
 #include "../vkcore/vkcoreimageview.h"
 #include "../vkcore/vkcoreframebuffers.h"
+#include "../vkcore/vkcorecommandpool.h"
 #include "../graphicspipeline/vkcoregraphicspipeline.h"
 #include "../graphicspipeline/vkcorerenderpass.h"
+#include "../vkcore/vkcorecommandbuffer.h"
 
 class VulkanApp
 {
@@ -25,6 +27,8 @@ private:
 	std::shared_ptr<VkcoreRenderPass> m_coreRenderPass;
 	std::shared_ptr<VkcoreGraphicsPipeline> m_coreGraphicsPipeline;
 	std::shared_ptr<VkcoreFrameBuffers> m_coreFrameBuffers;
+	std::shared_ptr<VkcoreCommndPool> m_coreCommndPool;
+	std::shared_ptr<VkcoreCommandBuffer> m_coreCommandBuffer;
 
 public:
 	void excute();

@@ -16,6 +16,7 @@ public:
 	~VkcoreFrameBuffers() = default;
 	void create(std::shared_ptr<VkcoreLogicalDevice> pLogicalDevice, std::shared_ptr<VkcoreRenderPass> pRenderPass, std::shared_ptr<VkcoreSwapChain> pSwapChain, std::shared_ptr<VkcoreImageView> pImageView);
 	void destroy(std::shared_ptr<VkcoreLogicalDevice> pLogicalDevice);
+	std::vector<VkFramebuffer> getFrameBuffers();
 };
 
 #endif // !VKCORERFRAMEBUFFER_H
