@@ -3,7 +3,7 @@
 
 void VkcoreCommndPool::create(std::shared_ptr<VkcorePhysicalDevice> pPhysicalDevice, std::shared_ptr<VkcoreLogicalDevice> pLogicalDevice, std::shared_ptr<VkcoreSurface> pSurface)
 {
-	if (!pPhysicalDevice || pLogicalDevice || !pSurface)
+	if (!pPhysicalDevice || !pLogicalDevice || !pSurface)
 	{
 		return;
 	}

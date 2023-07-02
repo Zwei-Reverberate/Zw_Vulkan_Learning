@@ -10,9 +10,10 @@
 #include "../vkcore/vkcoreimageview.h"
 #include "../vkcore/vkcoreframebuffers.h"
 #include "../vkcore/vkcorecommandpool.h"
+#include "../vkcore/vkcorecommandbuffer.h"
+#include "../vkcore/vkcoresynchronization.h"
 #include "../graphicspipeline/vkcoregraphicspipeline.h"
 #include "../graphicspipeline/vkcorerenderpass.h"
-#include "../vkcore/vkcorecommandbuffer.h"
 
 class VulkanApp
 {
@@ -29,12 +30,14 @@ private:
 	std::shared_ptr<VkcoreFrameBuffers> m_coreFrameBuffers;
 	std::shared_ptr<VkcoreCommndPool> m_coreCommndPool;
 	std::shared_ptr<VkcoreCommandBuffer> m_coreCommandBuffer;
+	std::shared_ptr<VkcoreSynchronization> m_coreSynchronization;
 
 public:
 	void excute();
 	void initCoreVulkan();
 	void mainLoop();
 	void cleanUp();
+	void drawFrame();
 };
 
 #endif // !VULKANAPP_H

@@ -15,6 +15,8 @@ public:
 	void create(std::shared_ptr<VkcorePhysicalDevice> pCorePhysicalDevice, std::shared_ptr<VkcoreSurface> pSurface);
 	void destroy();
 	VkDevice getDevice();
+	VkQueue getGraphicsQueue();
+	VkQueue getPresentQueue();
 };
 
 

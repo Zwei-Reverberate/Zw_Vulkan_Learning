@@ -69,3 +69,13 @@ VkDevice VkcoreLogicalDevice::getDevice()
 {
     return m_device;
 }
+
+VkQueue VkcoreLogicalDevice::getGraphicsQueue()
+{
+    return m_graphicsQueue;
+}
+
+VkQueue VkcoreLogicalDevice::getPresentQueue()
+{
+    return m_presentQueue;
+}

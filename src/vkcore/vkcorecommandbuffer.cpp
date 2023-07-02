@@ -3,7 +3,7 @@
 
 void VkcoreCommandBuffer::create(std::shared_ptr<VkcoreLogicalDevice> pLogicalDevice, std::shared_ptr<VkcoreCommndPool> pCommandPool)
 {
-	if (!pLogicalDevice || pCommandPool)
+	if (!pLogicalDevice || !pCommandPool)
 	{
 		return;
 	}
@@ -66,5 +66,10 @@ void VkcoreCommandBuffer::recordCommandBuffer(uint32_t imageIndex, std::shared_p
     {
         throw std::runtime_error("failed to record command buffer!");
     }
+}
+
+VkCommandBuffer& VkcoreCommandBuffer::getCommandBuffer()
+{
+    return m_commandBuffer;
 }
 
