@@ -1,25 +1,27 @@
-#include "vkcorecommandbuffer.h"
+#include "VkcoreCommandBuffers.h"
+#include "../enum/appenum.h"
 #include <stdexcept>
 
-void VkcoreCommandBuffer::create(std::shared_ptr<VkcoreLogicalDevice> pLogicalDevice, std::shared_ptr<VkcoreCommndPool> pCommandPool)
+void VkcoreCommandBuffers::create(std::shared_ptr<VkcoreLogicalDevice> pLogicalDevice, std::shared_ptr<VkcoreCommndPool> pCommandPool)
 {
 	if (!pLogicalDevice || !pCommandPool)
 	{
 		return;
 	}
+    m_commandBuffers.resize(appenum::MAX_FRAMES_IN_FLIGHT);
     VkCommandBufferAllocateInfo allocInfo{};
     allocInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
     allocInfo.commandPool = pCommandPool->getCommandPool(); // 指定 commandPool
     allocInfo.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY; // 指定是主 command buffer 还是辅助 command buffer，此处是主 command buffer
-    allocInfo.commandBufferCount = 1; // 指定分配的数量
+    allocInfo.commandBufferCount = (uint32_t)m_commandBuffers.size();; // 指定分配的数量
 
-    if (vkAllocateCommandBuffers(pLogicalDevice->getDevice(), &allocInfo, &m_commandBuffer) != VK_SUCCESS) 
+    if (vkAllocateCommandBuffers(pLogicalDevice->getDevice(), &allocInfo, m_commandBuffers.data()) != VK_SUCCESS) 
     {
         throw std::runtime_error("failed to allocate command buffers!");
     }
 }
 
-void VkcoreCommandBuffer::recordCommandBuffer(uint32_t imageIndex, std::shared_ptr<VkcoreRenderPass> pRenderPass, std::shared_ptr<VkcoreFrameBuffers> pFramebuffers, std::shared_ptr<VkcoreGraphicsPipeline> pGraphicsPipeline, std::shared_ptr<VkcoreSwapChain> pSwapChain)
+void VkcoreCommandBuffers::recordCommandBuffer(VkCommandBuffer commandBuffer, uint32_t imageIndex, std::shared_ptr<VkcoreRenderPass> pRenderPass, std::shared_ptr<VkcoreFrameBuffers> pFramebuffers, std::shared_ptr<VkcoreGraphicsPipeline> pGraphicsPipeline, std::shared_ptr<VkcoreSwapChain> pSwapChain)
 {
     if (!pRenderPass || !pFramebuffers || !pGraphicsPipeline || !pSwapChain)
     {
@@ -28,7 +30,7 @@ void VkcoreCommandBuffer::recordCommandBuffer(uint32_t imageIndex, std::shared_p
 
     VkCommandBufferBeginInfo beginInfo{};
     beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
-    if (vkBeginCommandBuffer(m_commandBuffer, &beginInfo) != VK_SUCCESS) 
+    if (vkBeginCommandBuffer(commandBuffer, &beginInfo) != VK_SUCCESS) 
     {
         throw std::runtime_error("failed to begin recording command buffer!");
     }
@@ -43,9 +45,9 @@ void VkcoreCommandBuffer::recordCommandBuffer(uint32_t imageIndex, std::shared_p
     VkClearValue clearColor = { {{0.0f, 0.0f, 0.0f, 1.0f}} };
     renderPassInfo.clearValueCount = 1;
     renderPassInfo.pClearValues = &clearColor;
-    vkCmdBeginRenderPass(m_commandBuffer, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
+    vkCmdBeginRenderPass(commandBuffer, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
 
-    vkCmdBindPipeline(m_commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pGraphicsPipeline->getGraphicsPipeline());
+    vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pGraphicsPipeline->getGraphicsPipeline());
     VkViewport viewport{};
     viewport.x = 0.0f;
     viewport.y = 0.0f;
@@ -53,23 +55,23 @@ void VkcoreCommandBuffer::recordCommandBuffer(uint32_t imageIndex, std::shared_p
     viewport.height = (float)pSwapChain->getSwapChainExtent().height;
     viewport.minDepth = 0.0f;
     viewport.maxDepth = 1.0f;
-    vkCmdSetViewport(m_commandBuffer, 0, 1, &viewport);
+    vkCmdSetViewport(commandBuffer, 0, 1, &viewport);
 
     VkRect2D scissor{};
     scissor.offset = { 0, 0 };
     scissor.extent = pSwapChain->getSwapChainExtent();
-    vkCmdSetScissor(m_commandBuffer, 0, 1, &scissor);
+    vkCmdSetScissor(commandBuffer, 0, 1, &scissor);
 
-    vkCmdDraw(m_commandBuffer, 3, 1, 0, 0);
-    vkCmdEndRenderPass(m_commandBuffer);
-    if (vkEndCommandBuffer(m_commandBuffer) != VK_SUCCESS) 
+    vkCmdDraw(commandBuffer, 3, 1, 0, 0);
+    vkCmdEndRenderPass(commandBuffer);
+    if (vkEndCommandBuffer(commandBuffer) != VK_SUCCESS) 
     {
         throw std::runtime_error("failed to record command buffer!");
     }
 }
 
-VkCommandBuffer& VkcoreCommandBuffer::getCommandBuffer()
+std::vector<VkCommandBuffer>& VkcoreCommandBuffers::getCommandBuffers()
 {
-    return m_commandBuffer;
+    return m_commandBuffers;
 }
 

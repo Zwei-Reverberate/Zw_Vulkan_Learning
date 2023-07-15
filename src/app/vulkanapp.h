@@ -10,7 +10,7 @@
 #include "../vkcore/vkcoreimageview.h"
 #include "../vkcore/vkcoreframebuffers.h"
 #include "../vkcore/vkcorecommandpool.h"
-#include "../vkcore/vkcorecommandbuffer.h"
+#include "../vkcore/VkcoreCommandBuffers.h"
 #include "../vkcore/vkcoresynchronization.h"
 #include "../graphicspipeline/vkcoregraphicspipeline.h"
 #include "../graphicspipeline/vkcorerenderpass.h"
@@ -29,8 +29,9 @@ private:
 	std::shared_ptr<VkcoreGraphicsPipeline> m_coreGraphicsPipeline;
 	std::shared_ptr<VkcoreFrameBuffers> m_coreFrameBuffers;
 	std::shared_ptr<VkcoreCommndPool> m_coreCommndPool;
-	std::shared_ptr<VkcoreCommandBuffer> m_coreCommandBuffer;
+	std::shared_ptr<VkcoreCommandBuffers> m_coreCommandBuffer;
 	std::shared_ptr<VkcoreSynchronization> m_coreSynchronization;
+	uint32_t m_currentFrame = 0;
 
 public:
 	void excute();

@@ -17,6 +17,7 @@ public:
 	VkDevice getDevice();
 	VkQueue getGraphicsQueue();
 	VkQueue getPresentQueue();
+	void waiteIdle();
 };
 
 

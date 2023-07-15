@@ -43,7 +43,7 @@ void VulkanApp::initCoreVulkan()
 	m_coreCommndPool = std::make_shared<VkcoreCommndPool>();
 	m_coreCommndPool->create(m_corePhysicalDevice, m_coreLogicalDevice, m_coreSurface);
 
-	m_coreCommandBuffer = std::make_shared<VkcoreCommandBuffer>();
+	m_coreCommandBuffer = std::make_shared<VkcoreCommandBuffers>();
 	m_coreCommandBuffer->create(m_coreLogicalDevice, m_coreCommndPool);
 
 	m_coreSynchronization = std::make_shared<VkcoreSynchronization>();
@@ -63,6 +63,7 @@ void VulkanApp::mainLoop()
 		glfwPollEvents();
 		drawFrame();
 	}
+	m_coreLogicalDevice->waiteIdle();
 }
 
 void VulkanApp::cleanUp()
@@ -82,32 +83,31 @@ void VulkanApp::cleanUp()
 
 void VulkanApp::drawFrame()
 {
-	// 等待上一帧完成
-	vkWaitForFences(m_coreLogicalDevice->getDevice(), 1, &m_coreSynchronization->getInFlightFence(), VK_TRUE, UINT64_MAX);
-	vkResetFences(m_coreLogicalDevice->getDevice(), 1, &m_coreSynchronization->getInFlightFence());
+	vkWaitForFences(m_coreLogicalDevice->getDevice(), 1, &m_coreSynchronization->getInFlightFences()[m_currentFrame], VK_TRUE, UINT64_MAX);
+	vkResetFences(m_coreLogicalDevice->getDevice(), 1, &m_coreSynchronization->getInFlightFences()[m_currentFrame]);
 
 	// 从 swap chain 获取图像
 	uint32_t imageIndex;
-	vkAcquireNextImageKHR(m_coreLogicalDevice->getDevice(), m_coreSwapChain->getSwapChain(), UINT64_MAX, m_coreSynchronization->getImageAvailableSemaphore(), VK_NULL_HANDLE, &imageIndex);
+	vkAcquireNextImageKHR(m_coreLogicalDevice->getDevice(), m_coreSwapChain->getSwapChain(), UINT64_MAX, m_coreSynchronization->getImageAvailableSemaphores()[m_currentFrame], VK_NULL_HANDLE, &imageIndex);
 
 	// 记录 command buffer
-	vkResetCommandBuffer(m_coreCommandBuffer->getCommandBuffer(), 0);
-	m_coreCommandBuffer->recordCommandBuffer(imageIndex, m_coreRenderPass, m_coreFrameBuffers, m_coreGraphicsPipeline, m_coreSwapChain);
+	vkResetCommandBuffer(m_coreCommandBuffer->getCommandBuffers()[m_currentFrame], 0);
+	m_coreCommandBuffer->recordCommandBuffer(m_coreCommandBuffer->getCommandBuffers()[m_currentFrame], imageIndex, m_coreRenderPass, m_coreFrameBuffers, m_coreGraphicsPipeline, m_coreSwapChain);
 
 	// 提交 command buffer
 	VkSubmitInfo submitInfo{};
 	submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
-	VkSemaphore waitSemaphores[] = { m_coreSynchronization->getImageAvailableSemaphore() };
+	VkSemaphore waitSemaphores[] = { m_coreSynchronization->getImageAvailableSemaphores()[m_currentFrame] };
 	VkPipelineStageFlags waitStages[] = { VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT };
 	submitInfo.waitSemaphoreCount = 1;
 	submitInfo.pWaitSemaphores = waitSemaphores;
 	submitInfo.pWaitDstStageMask = waitStages;
 	submitInfo.commandBufferCount = 1;
-	submitInfo.pCommandBuffers = &m_coreCommandBuffer->getCommandBuffer();
-	VkSemaphore signalSemaphores[] = { m_coreSynchronization->getRenderFinishedSemaphore()};
+	submitInfo.pCommandBuffers = &m_coreCommandBuffer->getCommandBuffers()[m_currentFrame];
+	VkSemaphore signalSemaphores[] = { m_coreSynchronization->getRenderFinishedSemaphores()[m_currentFrame] };
 	submitInfo.signalSemaphoreCount = 1;
 	submitInfo.pSignalSemaphores = signalSemaphores;
-	if (vkQueueSubmit(m_coreLogicalDevice->getGraphicsQueue(), 1, &submitInfo, m_coreSynchronization->getInFlightFence()) != VK_SUCCESS)
+	if (vkQueueSubmit(m_coreLogicalDevice->getGraphicsQueue(), 1, &submitInfo, m_coreSynchronization->getInFlightFences()[m_currentFrame]) != VK_SUCCESS)
 	{
 		throw std::runtime_error("failed to submit draw command buffer!");
 	}
@@ -122,4 +122,7 @@ void VulkanApp::drawFrame()
 	presentInfo.pSwapchains = swapChains;
 	presentInfo.pImageIndices = &imageIndex;
 	vkQueuePresentKHR(m_coreLogicalDevice->getPresentQueue(), &presentInfo);
+
+	// 每次都前进到下一帧
+	m_currentFrame = (m_currentFrame + 1) % appenum::MAX_FRAMES_IN_FLIGHT;
 }

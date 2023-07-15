@@ -79,3 +79,8 @@ VkQueue VkcoreLogicalDevice::getPresentQueue()
 {
     return m_presentQueue;
 }
+
+void VkcoreLogicalDevice::waiteIdle()
+{
+    vkDeviceWaitIdle(m_device);
+}

@@ -1,5 +1,6 @@
 #include "vkcoresynchronization.h"
 #include <stdexcept>
+#include "../enum/appenum.h"
 
 void VkcoreSynchronization::create(std::shared_ptr<VkcoreLogicalDevice> pLogicalDevice)
 {
@@ -8,17 +9,25 @@ void VkcoreSynchronization::create(std::shared_ptr<VkcoreLogicalDevice> pLogical
 		return;
 	}
 
+    m_imageAvailableSemaphores.resize(appenum::MAX_FRAMES_IN_FLIGHT);
+    m_renderFinishedSemaphores.resize(appenum::MAX_FRAMES_IN_FLIGHT);
+    m_inFlightFences.resize(appenum::MAX_FRAMES_IN_FLIGHT);
+
     VkSemaphoreCreateInfo semaphoreInfo{};
     semaphoreInfo.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
 
     VkFenceCreateInfo fenceInfo{};
     fenceInfo.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
     fenceInfo.flags = VK_FENCE_CREATE_SIGNALED_BIT;
-    if (vkCreateSemaphore(pLogicalDevice->getDevice(), &semaphoreInfo, nullptr, &m_imageAvailableSemaphore) != VK_SUCCESS ||
-        vkCreateSemaphore(pLogicalDevice->getDevice(), &semaphoreInfo, nullptr, &m_renderFinishedSemaphore) != VK_SUCCESS ||
-        vkCreateFence(pLogicalDevice->getDevice(), &fenceInfo, nullptr, &m_inFlightFence) != VK_SUCCESS)
+
+    for (size_t i = 0; i < appenum::MAX_FRAMES_IN_FLIGHT; i++)
     {
-        throw std::runtime_error("failed to create synchronization objects for a frame!");
+        if (vkCreateSemaphore(pLogicalDevice->getDevice(), &semaphoreInfo, nullptr, &m_imageAvailableSemaphores[i]) != VK_SUCCESS ||
+            vkCreateSemaphore(pLogicalDevice->getDevice(), &semaphoreInfo, nullptr, &m_renderFinishedSemaphores[i]) != VK_SUCCESS ||
+            vkCreateFence(pLogicalDevice->getDevice(), &fenceInfo, nullptr, &m_inFlightFences[i]) != VK_SUCCESS)
+        {
+            throw std::runtime_error("failed to create synchronization objects for a frame!");
+        }
     }
 }
 
@@ -28,22 +37,26 @@ void VkcoreSynchronization::destroy(std::shared_ptr<VkcoreLogicalDevice> pLogica
     {
         return;
     }
-    vkDestroySemaphore(pLogicalDevice->getDevice(), m_renderFinishedSemaphore, nullptr);
-    vkDestroySemaphore(pLogicalDevice->getDevice(), m_imageAvailableSemaphore, nullptr);
-    vkDestroyFence(pLogicalDevice->getDevice(), m_inFlightFence, nullptr);
+
+    for (size_t i = 0; i < appenum::MAX_FRAMES_IN_FLIGHT; i++)
+    {
+        vkDestroySemaphore(pLogicalDevice->getDevice(), m_renderFinishedSemaphores[i], nullptr);
+        vkDestroySemaphore(pLogicalDevice->getDevice(), m_imageAvailableSemaphores[i], nullptr);
+        vkDestroyFence(pLogicalDevice->getDevice(), m_inFlightFences[i], nullptr);
+    }
 }
 
-VkFence& VkcoreSynchronization::getInFlightFence()
+std::vector<VkFence>& VkcoreSynchronization::getInFlightFences()
 {
-    return m_inFlightFence;
+    return m_inFlightFences;
 }
 
-VkSemaphore VkcoreSynchronization::getImageAvailableSemaphore()
+std::vector<VkSemaphore> VkcoreSynchronization::getImageAvailableSemaphores()
 {
-    return m_imageAvailableSemaphore;
+    return m_imageAvailableSemaphores;
 }
 
-VkSemaphore VkcoreSynchronization::getRenderFinishedSemaphore()
+std::vector<VkSemaphore> VkcoreSynchronization::getRenderFinishedSemaphores()
 {
-    return m_renderFinishedSemaphore;
+    return m_renderFinishedSemaphores;
 }

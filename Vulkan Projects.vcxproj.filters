@@ -83,7 +83,7 @@
     <ClCompile Include="src\vkcore\vkcorecommandpool.cpp">
       <Filter>Source Files\vkcore</Filter>
     </ClCompile>
-    <ClCompile Include="src\vkcore\vkcorecommandbuffer.cpp">
+    <ClCompile Include="src\vkcore\vkcorecommandbuffers.cpp">
       <Filter>Source Files\vkcore</Filter>
     </ClCompile>
     <ClCompile Include="src\vkcore\vkcoresynchronization.cpp">
@@ -142,7 +142,7 @@
     <ClInclude Include="src\vkcore\vkcorecommandpool.h">
       <Filter>Source Files\vkcore</Filter>
     </ClInclude>
-    <ClInclude Include="src\vkcore\vkcorecommandbuffer.h">
+    <ClInclude Include="src\vkcore\vkcorecommandbuffers.h">
       <Filter>Source Files\vkcore</Filter>
     </ClInclude>
     <ClInclude Include="src\vkcore\vkcoresynchronization.h">

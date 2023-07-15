@@ -21,6 +21,8 @@ namespace appenum
 
 	extern const std::string vertexShaderPath;
 	extern const std::string fragmentShaderPath;
+
+	extern const int MAX_FRAMES_IN_FLIGHT;
 }
 
 #endif
