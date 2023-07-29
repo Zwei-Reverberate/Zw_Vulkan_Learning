@@ -7,6 +7,7 @@ class GlfwWdindow
 {
 private:
 	GLFWwindow* m_window;
+	bool m_framebufferResized = false;
 
 public:
 	GlfwWdindow();
@@ -14,6 +15,9 @@ public:
 	void initWindow();
 	void destroyWindow();
 	GLFWwindow* getWindow() const;
+	bool getIsFramebufferResized() const;
+	void setIsFramebufferResized(bool isResized);
+	static void framebufferResizeCallback(GLFWwindow* window, int width, int height);
 };
 
 #endif // !GLFWWINDOW_H

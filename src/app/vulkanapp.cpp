@@ -2,6 +2,30 @@
 #include "../enum/appenum.h"
 #include <stdexcept>
 
+void VulkanApp::recreateSwapChain()
+{
+	// 重新创建 swap chain
+	int width = 0, height = 0;
+	glfwGetFramebufferSize(m_appWindow.getWindow(), &width, &height);
+	while (width == 0 || height == 0) // 处理窗口最小化的情况
+	{
+		glfwGetFramebufferSize(m_appWindow.getWindow(), &width, &height);
+		glfwWaitEvents();
+	}
+	vkDeviceWaitIdle(m_coreLogicalDevice->getDevice()); // 不应触及仍在使用的资源
+	cleanUpSwapChain();
+	m_coreSwapChain->create(m_appWindow.getWindow(), m_corePhysicalDevice, m_coreSurface, m_coreLogicalDevice);
+	m_coreImageView->create(m_coreSwapChain, m_coreLogicalDevice);
+	m_coreFrameBuffers->create(m_coreLogicalDevice, m_coreRenderPass, m_coreSwapChain, m_coreImageView);
+}
+
+void VulkanApp::cleanUpSwapChain()
+{
+	m_coreFrameBuffers->destroy(m_coreLogicalDevice);
+	m_coreImageView->destroy(m_coreLogicalDevice);
+	m_coreSwapChain->destroy(m_coreLogicalDevice);
+}
+
 void VulkanApp::excute()
 {
 	m_appWindow.initWindow();
@@ -68,13 +92,11 @@ void VulkanApp::mainLoop()
 
 void VulkanApp::cleanUp()
 {
-	m_coreSynchronization->destroy(m_coreLogicalDevice);
-	m_coreCommndPool->destroy(m_coreLogicalDevice);
-	m_coreFrameBuffers->destroy(m_coreLogicalDevice);
+	cleanUpSwapChain();
 	m_coreGraphicsPipeline->destroy(m_coreLogicalDevice);
 	m_coreRenderPass->destroy(m_coreLogicalDevice);
-	m_coreImageView->destroy(m_coreLogicalDevice);
-	m_coreSwapChain->destroy(m_coreLogicalDevice);
+	m_coreSynchronization->destroy(m_coreLogicalDevice);
+	m_coreCommndPool->destroy(m_coreLogicalDevice);
 	m_coreLogicalDevice->destroy();
 	m_coreSurface->destroy(m_coreInstance);
 	m_coreInstance->destroy();
@@ -84,11 +106,21 @@ void VulkanApp::cleanUp()
 void VulkanApp::drawFrame()
 {
 	vkWaitForFences(m_coreLogicalDevice->getDevice(), 1, &m_coreSynchronization->getInFlightFences()[m_currentFrame], VK_TRUE, UINT64_MAX);
-	vkResetFences(m_coreLogicalDevice->getDevice(), 1, &m_coreSynchronization->getInFlightFences()[m_currentFrame]);
 
 	// 从 swap chain 获取图像
 	uint32_t imageIndex;
-	vkAcquireNextImageKHR(m_coreLogicalDevice->getDevice(), m_coreSwapChain->getSwapChain(), UINT64_MAX, m_coreSynchronization->getImageAvailableSemaphores()[m_currentFrame], VK_NULL_HANDLE, &imageIndex);
+	VkResult result = vkAcquireNextImageKHR(m_coreLogicalDevice->getDevice(), m_coreSwapChain->getSwapChain(), UINT64_MAX, m_coreSynchronization->getImageAvailableSemaphores()[m_currentFrame], VK_NULL_HANDLE, &imageIndex);
+	if (result == VK_ERROR_OUT_OF_DATE_KHR)
+	{
+		recreateSwapChain();
+		return;
+	}
+	else if (result != VK_SUCCESS && result != VK_SUBOPTIMAL_KHR)
+	{
+		throw std::runtime_error("failed to acquire swap chain image!");
+	}
+	// Only reset the fence if we are submitting work
+	vkResetFences(m_coreLogicalDevice->getDevice(), 1, &m_coreSynchronization->getInFlightFences()[m_currentFrame]);
 
 	// 记录 command buffer
 	vkResetCommandBuffer(m_coreCommandBuffer->getCommandBuffers()[m_currentFrame], 0);
@@ -111,17 +143,27 @@ void VulkanApp::drawFrame()
 	{
 		throw std::runtime_error("failed to submit draw command buffer!");
 	}
-	
+
 	// Presentation
 	VkPresentInfoKHR presentInfo{};
 	presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
 	presentInfo.waitSemaphoreCount = 1;
 	presentInfo.pWaitSemaphores = signalSemaphores;
-	VkSwapchainKHR swapChains[] = { m_coreSwapChain->getSwapChain()};
+	VkSwapchainKHR swapChains[] = { m_coreSwapChain->getSwapChain() };
 	presentInfo.swapchainCount = 1;
 	presentInfo.pSwapchains = swapChains;
 	presentInfo.pImageIndices = &imageIndex;
-	vkQueuePresentKHR(m_coreLogicalDevice->getPresentQueue(), &presentInfo);
+	result = vkQueuePresentKHR(m_coreLogicalDevice->getPresentQueue(), &presentInfo);
+	if (result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR || m_appWindow.getIsFramebufferResized())
+	{
+		m_appWindow.setIsFramebufferResized(false);
+		recreateSwapChain();
+	}
+	else if (result != VK_SUCCESS) 
+	{
+		throw std::runtime_error("failed to present swap chain image!");
+	}
+
 
 	// 每次都前进到下一帧
 	m_currentFrame = (m_currentFrame + 1) % appenum::MAX_FRAMES_IN_FLIGHT;

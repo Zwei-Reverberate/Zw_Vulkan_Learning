@@ -32,6 +32,11 @@ private:
 	std::shared_ptr<VkcoreCommandBuffers> m_coreCommandBuffer;
 	std::shared_ptr<VkcoreSynchronization> m_coreSynchronization;
 	uint32_t m_currentFrame = 0;
+	
+
+private:
+	void recreateSwapChain();
+	void cleanUpSwapChain();
 
 public:
 	void excute();
