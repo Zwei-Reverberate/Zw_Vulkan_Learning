@@ -2,6 +2,7 @@
 #define VKCOREGRAPHICSPIPELINE_H
 #include "../graphicspipeline/vkshader.h"
 #include "../graphicspipeline/vkcorerenderpass.h"
+#include "../geometry/zwvertex.h"
 #include <memory>
 
 class VkcoreGraphicsPipeline

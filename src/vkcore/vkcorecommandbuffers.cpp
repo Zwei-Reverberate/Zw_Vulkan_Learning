@@ -21,9 +21,9 @@ void VkcoreCommandBuffers::create(std::shared_ptr<VkcoreLogicalDevice> pLogicalD
     }
 }
 
-void VkcoreCommandBuffers::recordCommandBuffer(VkCommandBuffer commandBuffer, uint32_t imageIndex, std::shared_ptr<VkcoreRenderPass> pRenderPass, std::shared_ptr<VkcoreFrameBuffers> pFramebuffers, std::shared_ptr<VkcoreGraphicsPipeline> pGraphicsPipeline, std::shared_ptr<VkcoreSwapChain> pSwapChain)
+void VkcoreCommandBuffers::recordCommandBuffer(VkCommandBuffer commandBuffer, uint32_t imageIndex, std::shared_ptr<VkcoreRenderPass> pRenderPass, std::shared_ptr<VkcoreFrameBuffers> pFramebuffers, std::shared_ptr<VkcoreGraphicsPipeline> pGraphicsPipeline, std::shared_ptr<VkcoreSwapChain> pSwapChain, std::shared_ptr<VkcoreVertexBuffer> pVertexBuffer)
 {
-    if (!pRenderPass || !pFramebuffers || !pGraphicsPipeline || !pSwapChain)
+    if (!pRenderPass || !pFramebuffers || !pGraphicsPipeline || !pSwapChain || !pVertexBuffer)
     {
         return;
     }
@@ -62,7 +62,11 @@ void VkcoreCommandBuffers::recordCommandBuffer(VkCommandBuffer commandBuffer, ui
     scissor.extent = pSwapChain->getSwapChainExtent();
     vkCmdSetScissor(commandBuffer, 0, 1, &scissor);
 
-    vkCmdDraw(commandBuffer, 3, 1, 0, 0);
+    VkBuffer vertexBuffers[] = { pVertexBuffer->getVertexBuffer()};
+    VkDeviceSize offsets[] = { 0 };
+    vkCmdBindVertexBuffers(commandBuffer, 0, 1, vertexBuffers, offsets);
+
+    vkCmdDraw(commandBuffer, static_cast<uint32_t>(pVertexBuffer->getVertexSize()), 1, 0, 0);
     vkCmdEndRenderPass(commandBuffer);
     if (vkEndCommandBuffer(commandBuffer) != VK_SUCCESS) 
     {

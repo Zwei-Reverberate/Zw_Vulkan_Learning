@@ -67,6 +67,9 @@ void VulkanApp::initCoreVulkan()
 	m_coreCommndPool = std::make_shared<VkcoreCommndPool>();
 	m_coreCommndPool->create(m_corePhysicalDevice, m_coreLogicalDevice, m_coreSurface);
 
+	m_coreVertexBuffer = std::make_shared<VkcoreVertexBuffer>();
+	m_coreVertexBuffer->create(m_coreLogicalDevice, zwVertices, m_corePhysicalDevice);
+
 	m_coreCommandBuffer = std::make_shared<VkcoreCommandBuffers>();
 	m_coreCommandBuffer->create(m_coreLogicalDevice, m_coreCommndPool);
 
@@ -95,6 +98,7 @@ void VulkanApp::cleanUp()
 	cleanUpSwapChain();
 	m_coreGraphicsPipeline->destroy(m_coreLogicalDevice);
 	m_coreRenderPass->destroy(m_coreLogicalDevice);
+	m_coreVertexBuffer->destroy(m_coreLogicalDevice);
 	m_coreSynchronization->destroy(m_coreLogicalDevice);
 	m_coreCommndPool->destroy(m_coreLogicalDevice);
 	m_coreLogicalDevice->destroy();
@@ -124,7 +128,7 @@ void VulkanApp::drawFrame()
 
 	// º«¬º command buffer
 	vkResetCommandBuffer(m_coreCommandBuffer->getCommandBuffers()[m_currentFrame], 0);
-	m_coreCommandBuffer->recordCommandBuffer(m_coreCommandBuffer->getCommandBuffers()[m_currentFrame], imageIndex, m_coreRenderPass, m_coreFrameBuffers, m_coreGraphicsPipeline, m_coreSwapChain);
+	m_coreCommandBuffer->recordCommandBuffer(m_coreCommandBuffer->getCommandBuffers()[m_currentFrame], imageIndex, m_coreRenderPass, m_coreFrameBuffers, m_coreGraphicsPipeline, m_coreSwapChain, m_coreVertexBuffer);
 
 	// Ã·Ωª command buffer
 	VkSubmitInfo submitInfo{};

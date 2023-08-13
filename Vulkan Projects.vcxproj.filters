@@ -27,6 +27,9 @@
     <Filter Include="Source Files\graphicspipeline">
       <UniqueIdentifier>{58aa6ea0-9393-4d03-8800-48fd80f67251}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\geometry">
+      <UniqueIdentifier>{f19b4ba6-3842-46c9-8b0a-271ee0cd6302}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main\main.cpp">
@@ -89,6 +92,12 @@
     <ClCompile Include="src\vkcore\vkcoresynchronization.cpp">
       <Filter>Source Files\vkcore</Filter>
     </ClCompile>
+    <ClCompile Include="src\geometry\zwvertex.cpp">
+      <Filter>Source Files\geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vkcore\vkcorevertexbuffer.cpp">
+      <Filter>Source Files\vkcore</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\app\vulkanapp.h">
@@ -148,12 +157,24 @@
     <ClInclude Include="src\vkcore\vkcoresynchronization.h">
       <Filter>Source Files\vkcore</Filter>
     </ClInclude>
+    <ClInclude Include="src\geometry\zwvertex.h">
+      <Filter>Source Files\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vkcore\vkcorevertexbuffer.h">
+      <Filter>Source Files\vkcore</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shader\triangle\triangle.vert">
       <Filter>Shader</Filter>
     </None>
     <None Include="shader\triangle\triangle.frag">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="shader\basicinput\basicinput.vert">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="shader\basicinput\basicinput.frag">
       <Filter>Shader</Filter>
     </None>
   </ItemGroup>

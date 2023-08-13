@@ -27,8 +27,8 @@ namespace appenum
 		const bool enableValidationLayers = true;
 	#endif
 
-	extern const std::string vertexShaderPath = "shader/triangle/trianglevert.spv";
-	extern const std::string fragmentShaderPath = "shader/triangle/trianglefrag.spv";
+	extern const std::string vertexShaderPath = "shader/basicinput/basicinputvert.spv";
+	extern const std::string fragmentShaderPath = "shader/basicinput/basicinputfrag.spv";
 
 	extern const int MAX_FRAMES_IN_FLIGHT = 2;
 }

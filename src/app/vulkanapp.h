@@ -31,6 +31,7 @@ private:
 	std::shared_ptr<VkcoreCommndPool> m_coreCommndPool;
 	std::shared_ptr<VkcoreCommandBuffers> m_coreCommandBuffer;
 	std::shared_ptr<VkcoreSynchronization> m_coreSynchronization;
+	std::shared_ptr<VkcoreVertexBuffer> m_coreVertexBuffer;
 	uint32_t m_currentFrame = 0;
 	
 
